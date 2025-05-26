@@ -1,29 +1,75 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plane, Clock, Target, Bell, CreditCard, Shield, User, ArrowRight, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Index = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userLocation, setUserLocation] = useState<string>('');
+
+  useEffect(() => {
+    // Try to get user's location
+    const getUserLocation = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        setUserLocation(`${data.city}, ${data.country_name}`);
+      } catch (error) {
+        console.log('Could not get location:', error);
+        setUserLocation('Unknown');
+      }
+    };
+
+    getUserLocation();
+  }, []);
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email) return;
+    
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Erfolgreich angemeldet! 🎉",
-      description: "Du erhältst eine Bestätigung per E-Mail und wirst über den Launch informiert.",
-    });
-    
-    setEmail('');
-    setIsSubmitting(false);
+    try {
+      const { data, error } = await supabase
+        .from('waitlist')
+        .insert([
+          {
+            email: email.toLowerCase().trim(),
+            location: userLocation
+          }
+        ]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          toast({
+            title: "Du bist bereits dabei! 😊",
+            description: "Diese E-Mail-Adresse ist bereits für die Warteliste registriert.",
+            variant: "default",
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        toast({
+          title: "Erfolgreich angemeldet! 🎉",
+          description: "Du erhältst eine Bestätigung per E-Mail und wirst über den Launch informiert.",
+        });
+        setEmail('');
+      }
+    } catch (error) {
+      console.error('Error submitting to waitlist:', error);
+      toast({
+        title: "Fehler beim Anmelden",
+        description: "Bitte versuche es noch einmal. Falls das Problem bestehen bleibt, kontaktiere uns.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const features = [
