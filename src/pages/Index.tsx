@@ -76,22 +76,22 @@ const Index = () => {
     {
       icon: <Clock className="w-8 h-8" />,
       title: "Echtzeit-Deal-Radar",
-      description: "Scannt minütlich das Netz nach frischen Flug-Schnäppchen und liefert sie sofort aufs Handy."
+      description: "Scannt minütlich das Internet nach Flugdeals und benachrichtigt dich sofort."
     },
     {
       icon: <Target className="w-8 h-8" />,
       title: "Preference-Match-Engine",
-      description: "Gleicht automatisch Home-Airport, Budget, Reisefenster und Wetter mit jedem Deal ab."
+      description: "Gleicht automatisch Heimatflughafen, Budget, Reisefenster und Wetter mit jedem Deal ab."
     },
     {
       icon: <Bell className="w-8 h-8" />,
       title: "Smart-Alert System",
-      description: "Eine einzige Push-Nachricht mit Restzeit-Countdown statt Spam-Flut – nur bei perfekten Matches."
+      description: "Eine einzige Push-Nachricht statt Spam-Flut – nur bei perfekten Matches."
     },
     {
       icon: <CreditCard className="w-8 h-8" />,
       title: "1-Tap-Buchung",
-      description: "Bot füllt alle Formulare aus, reserviert den Sitzplatz und zahlt via Apple Pay oder Google Pay."
+      description: "Agent füllt alle Formulare aus, reserviert den Sitzplatz und zahlt automatisch."
     },
     {
       icon: <Shield className="w-8 h-8" />,
@@ -109,8 +109,8 @@ const Index = () => {
     "Nie wieder stundenlang nach Deals suchen",
     "Automatische Preisüberwachung nach Buchung",
     "3-Minuten-Routine statt Schnäppchenjagd-Stress",
-    "Keine verpassten Gelegenheiten mehr",
-    "Vollautomatische Abwicklung von A bis Z"
+    "Keine verpassten Gelegenheiten",
+    "Vollautomatische Abwicklung"
   ];
 
   return (
@@ -128,11 +128,11 @@ const Index = () => {
               />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Deine <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">3-Minuten</span><br />
+              Deine <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">vollautomatisierte</span><br />
               Schnäppchenjagd
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-              SnapFare scannt minütlich das Netz und liefert dir mit dem Echtzeit-Deal-Radar sofort jedes frische Flug-Schnäppchen aufs Handy. Vollautomatisch, ohne Stress, ohne Preisprünge.
+              SnapFare scannt minütlich das Netz und liefert dir sofort jeden Flugdeal aufs Handy. Vollautomatisch, ohne Stress, ohne Preisprünge.
             </p>
             
             {/* Waitlist Form */}
