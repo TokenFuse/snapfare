@@ -1,12 +1,266 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from 'react';
+import { Plane, Clock, Target, Bell, CreditCard, Shield, User, ArrowRight, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent } from '@/components/ui/card';
+import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    toast({
+      title: "Erfolgreich angemeldet! 🎉",
+      description: "Du erhältst eine Bestätigung per E-Mail und wirst über den Launch informiert.",
+    });
+    
+    setEmail('');
+    setIsSubmitting(false);
+  };
+
+  const features = [
+    {
+      icon: <Clock className="w-8 h-8" />,
+      title: "Echtzeit-Deal-Radar",
+      description: "Scannt minütlich das Netz nach frischen Flug-Schnäppchen und liefert sie sofort aufs Handy."
+    },
+    {
+      icon: <Target className="w-8 h-8" />,
+      title: "Preference-Match-Engine",
+      description: "Gleicht automatisch Home-Airport, Budget, Reisefenster und Wetter mit jedem Deal ab."
+    },
+    {
+      icon: <Bell className="w-8 h-8" />,
+      title: "Smart-Alert System",
+      description: "Eine einzige Push-Nachricht mit Restzeit-Countdown statt Spam-Flut – nur bei perfekten Matches."
+    },
+    {
+      icon: <CreditCard className="w-8 h-8" />,
+      title: "1-Tap-Buchung",
+      description: "Bot füllt alle Formulare aus, reserviert den Sitzplatz und zahlt via Apple Pay oder Google Pay."
+    },
+    {
+      icon: <Shield className="w-8 h-8" />,
+      title: "Price-Guard Monitor",
+      description: "Überwacht Tarife nach der Buchung und fordert automatisch Erstattungen bei Preisstürzen an."
+    },
+    {
+      icon: <User className="w-8 h-8" />,
+      title: "Post-Trip-Assistent",
+      description: "Erledigt Umbuchungen, Visa-Checks und Check-in-Links – vollautomatisch und stressfrei."
+    }
+  ];
+
+  const benefits = [
+    "Nie wieder stundenlang nach Deals suchen",
+    "Automatische Preisüberwachung nach Buchung",
+    "3-Minuten-Routine statt Schnäppchenjagd-Stress",
+    "Keine verpassten Gelegenheiten mehr",
+    "Vollautomatische Abwicklung von A bis Z"
+  ];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-blue-500/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
+          <div className="text-center">
+            <div className="flex justify-center mb-8">
+              <img 
+                src="/lovable-uploads/22d07078-66db-4c3e-92e4-3eaf76df8936.png" 
+                alt="SnapFare Logo" 
+                className="h-16 w-auto"
+              />
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+              Deine <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">3-Minuten</span><br />
+              Schnäppchenjagd
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+              SnapFare scannt minütlich das Netz und liefert dir mit dem Echtzeit-Deal-Radar sofort jedes frische Flug-Schnäppchen aufs Handy. Vollautomatisch, ohne Stress, ohne Preisprünge.
+            </p>
+            
+            {/* Waitlist Form */}
+            <form onSubmit={handleWaitlistSubmit} className="max-w-md mx-auto mb-12">
+              <div className="flex gap-4">
+                <Input
+                  type="email"
+                  placeholder="Deine E-Mail-Adresse"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-12"
+                />
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 h-12 px-8"
+                >
+                  {isSubmitting ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  ) : (
+                    <>
+                      Früh-Zugang <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </div>
+              <p className="text-sm text-gray-400 mt-3">
+                Kostenlos anmelden • Kein Spam • Launch-Benachrichtigung
+              </p>
+            </form>
+
+            {/* Benefits */}
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 text-sm">
+              {benefits.map((benefit, index) => (
+                <div key={index} className="flex items-center gap-2 bg-white/5 rounded-lg p-3">
+                  <Check className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-gray-300">{benefit}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Features Section */}
+      <div className="py-24 bg-gradient-to-b from-slate-800 to-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              So funktioniert die <span className="text-green-400">Automatisierung</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Sechs intelligente Module arbeiten rund um die Uhr für dich – von der Suche bis zur Erstattung.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                <CardContent className="p-8">
+                  <div className="text-green-400 mb-6 group-hover:scale-110 transition-transform duration-300">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-4">{feature.title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Process Section */}
+      <div className="py-24 bg-gradient-to-b from-slate-900 to-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Von Deal zu Boarding Pass in <span className="text-blue-400">3 Minuten</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-white font-bold text-xl">1</span>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4">Deal erkannt</h3>
+              <p className="text-gray-300">SnapFare findet einen perfekten Match für deine Präferenzen</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-white font-bold text-xl">2</span>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4">Smart-Alert</h3>
+              <p className="text-gray-300">Du erhältst eine Push-Nachricht mit Countdown und allen Details</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-white font-bold text-xl">3</span>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4">1-Tap-Buchung</h3>
+              <p className="text-gray-300">Bot bucht automatisch, du zahlst per Apple/Google Pay</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-white font-bold text-xl">4</span>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4">Automatik läuft</h3>
+              <p className="text-gray-300">Price-Guard und Post-Trip-Assistent übernehmen den Rest</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Final CTA */}
+      <div className="py-24 bg-gradient-to-r from-green-500/10 to-blue-500/10">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Bereit für stressfreie Schnäppchen?
+          </h2>
+          <p className="text-xl text-gray-300 mb-10">
+            Melde dich jetzt an und sei einer der ersten, die SnapFare nutzen können.
+          </p>
+          
+          <form onSubmit={handleWaitlistSubmit} className="max-w-md mx-auto">
+            <div className="flex gap-4">
+              <Input
+                type="email"
+                placeholder="Deine E-Mail-Adresse"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-12"
+              />
+              <Button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 h-12 px-8"
+              >
+                {isSubmitting ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                ) : (
+                  <>
+                    Warteliste beitreten <Plane className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center gap-3 mb-4 md:mb-0">
+              <img 
+                src="/lovable-uploads/22d07078-66db-4c3e-92e4-3eaf76df8936.png" 
+                alt="SnapFare Logo" 
+                className="h-8 w-auto"
+              />
+              <span className="text-white font-semibold">SnapFare</span>
+            </div>
+            <p className="text-gray-400 text-sm">
+              © 2025 SnapFare. Alle Rechte vorbehalten.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
