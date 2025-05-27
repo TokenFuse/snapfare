@@ -159,7 +159,7 @@ const Index = () => {
                 </Button>
               </div>
               <p className="text-sm text-gray-400 mt-3">
-                Anmelden & bei Launch kostenlos nutzen!
+                Kostenlos anmelden! Kein Spam, versprochen!
               </p>
             </form>
 
@@ -235,7 +235,7 @@ const Index = () => {
                 <span className="text-white font-bold text-xl">3</span>
               </div>
               <h3 className="text-xl font-semibold text-white mb-4">1-Tap-Buchung</h3>
-              <p className="text-gray-300">Bot bucht automatisch, du zahlst per Apple/Google Pay</p>
+              <p className="text-gray-300">Agent bucht automatisch, du zahlst mit Zahlungsmittel deiner Wahl</p>
             </div>
 
             <div className="text-center">
