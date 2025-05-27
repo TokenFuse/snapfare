@@ -107,7 +107,7 @@ const Index = () => {
 
   const benefits = [
     "Nie wieder stundenlang nach Deals suchen",
-    "Automatische Preisüberwachung nach Buchung",
+    "Automatische Preisüberwachung",
     "3-Minuten-Routine statt Schnäppchenjagd-Stress",
     "Keine verpassten Gelegenheiten",
     "Vollautomatische Abwicklung"
@@ -153,13 +153,13 @@ const Index = () => {
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                   ) : (
                     <>
-                      Früh-Zugang <ArrowRight className="ml-2 h-4 w-4" />
+                      Jetzt anmelden! <ArrowRight className="ml-2 h-4 w-4" />
                     </>
                   )}
                 </Button>
               </div>
               <p className="text-sm text-gray-400 mt-3">
-                Kostenlos anmelden • Kein Spam • Launch-Benachrichtigung
+                Anmelden & bei Launch kostenlos nutzen!
               </p>
             </form>
 
@@ -184,7 +184,7 @@ const Index = () => {
               So funktioniert die <span className="text-green-400">Automatisierung</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Sechs intelligente Module arbeiten rund um die Uhr für dich – von der Suche bis zur Erstattung.
+              Sechs intelligente Module arbeiten rund um die Uhr für dich und den besten Deal.
             </p>
           </div>
 
