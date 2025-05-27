@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Plane, Clock, Target, Bell, CreditCard, Shield, User, ArrowRight, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -28,6 +27,27 @@ const Index = () => {
     getUserLocation();
   }, []);
 
+  const sendConfirmationEmail = async (email: string, location: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('send-confirmation-email', {
+        body: {
+          email: email,
+          location: location
+        }
+      });
+
+      if (error) {
+        console.error('Error sending confirmation email:', error);
+        // Don't throw error - we still want to show success message even if email fails
+      } else {
+        console.log('Confirmation email sent successfully:', data);
+      }
+    } catch (error) {
+      console.error('Failed to send confirmation email:', error);
+      // Don't throw error - we still want to show success message even if email fails
+    }
+  };
+
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
@@ -55,6 +75,9 @@ const Index = () => {
           throw error;
         }
       } else {
+        // Send confirmation email
+        await sendConfirmationEmail(email.toLowerCase().trim(), userLocation);
+        
         toast({
           title: "Erfolgreich angemeldet! 🎉",
           description: "Du erhältst eine Bestätigung per E-Mail und wirst über den Launch informiert.",
