@@ -27,7 +27,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`Sending confirmation email to: ${email}`);
 
     const emailResponse = await resend.emails.send({
-      from: "SnapFare <onboarding@resend.dev>",
+      from: "SnapFare <noreply@basics-db.ch>",
       to: [email],
       subject: "Willkommen bei SnapFare! 🎉",
       html: `
