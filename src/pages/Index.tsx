@@ -80,7 +80,7 @@ const Index = () => {
         
         toast({
           title: "Erfolgreich angemeldet! 🎉",
-          description: "Du erhältst eine Bestätigung per E-Mail und wirst über den Launch informiert.",
+          description: "Du hast es geschafft - wir werden dir bald weitere Informationen zukommen lassen.",
         });
         setEmail('');
       }
