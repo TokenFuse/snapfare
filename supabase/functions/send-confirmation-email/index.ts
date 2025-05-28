@@ -81,7 +81,7 @@ const handler = async (req: Request): Promise<Response> => {
                   <li style="margin-bottom: 8px;">🔍 Wir perfektionieren unseren Deal-Radar für den Launch</li>
                   <li style="margin-bottom: 8px;">📱 Du erhältst eine persönliche Einladung sobald SnapFare verfügbar ist</li>
                   <li style="margin-bottom: 8px;">🎯 Als Early-Access-Nutzer bekommst du exklusive Vorteile</li>
-                  <li>💰 Spare dir ab Tag 1 hunderte Euro bei deinen Flugbuchungen</li>
+                  <li>💰 Spare dir ab Tag 1 hunderte Franken bei deinen Flugbuchungen</li>
                 </ul>
               </div>
               
