@@ -44,9 +44,10 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     console.log("API key found, attempting to send email...");
+    console.log("Using from address: noreply@basics-db.ch");
 
     const emailResponse = await resend.emails.send({
-      from: "SnapFare <noreply@resend.dev>",
+      from: "SnapFare <noreply@basics-db.ch>",
       to: [email],
       subject: "Willkommen bei SnapFare! 🎉",
       html: `
@@ -133,6 +134,14 @@ const handler = async (req: Request): Promise<Response> => {
       name: error.name,
       stack: error.stack
     });
+    
+    // Log specific Resend error details if available
+    if (error.cause) {
+      console.error("Error cause:", error.cause);
+    }
+    if (error.response) {
+      console.error("Error response:", error.response);
+    }
     
     return new Response(
       JSON.stringify({ 
