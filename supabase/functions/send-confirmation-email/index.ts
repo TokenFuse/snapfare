@@ -24,10 +24,29 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { email, location }: ConfirmationEmailRequest = await req.json();
 
-    console.log(`Sending confirmation email to: ${email}`);
+    console.log(`Attempting to send confirmation email to: ${email}`);
+    console.log(`User location: ${location || 'Unknown'}`);
+    
+    // Check if API key is available
+    const apiKey = Deno.env.get("RESEND_API_KEY");
+    if (!apiKey) {
+      console.error("RESEND_API_KEY is not set");
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: "Email service not configured" 
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    console.log("API key found, attempting to send email...");
 
     const emailResponse = await resend.emails.send({
-      from: "SnapFare <noreply@basics-db.ch>",
+      from: "SnapFare <noreply@resend.dev>",
       to: [email],
       subject: "Willkommen bei SnapFare! 🎉",
       html: `
@@ -109,10 +128,17 @@ const handler = async (req: Request): Promise<Response> => {
     });
   } catch (error: any) {
     console.error("Error in send-confirmation-email function:", error);
+    console.error("Error details:", {
+      message: error.message,
+      name: error.name,
+      stack: error.stack
+    });
+    
     return new Response(
       JSON.stringify({ 
         success: false, 
-        error: error.message 
+        error: error.message || "Unknown error occurred",
+        details: error.name || "Unknown error type"
       }),
       {
         status: 500,
